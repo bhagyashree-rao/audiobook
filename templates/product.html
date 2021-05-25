@@ -1,0 +1,440 @@
+
+{% extends "base.html" %}
+{%load static%}
+{%block navbar%}
+						<li><font color="red";>Welcome,{{request.session.loginuser}}</font></li>
+						<li><a href="{% url 'logout'%}">logout</a></li>
+                        
+{%endblock%}
+{%block blk%}
+
+			<!-- MAIN HEADER -->
+			<div id="header">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<!-- LOGO -->
+						<div class="col-md-3">
+							<div class="header-logo">
+								<a href="#" class="logo">
+									<img  style="border-radius: 50%; margin-top: 15%"  src="/static/img/logob.png" alt="error">
+									
+								</a>
+
+							</div>
+							<br/>
+							<span><h3 style="color: #FFFFFF">YourReads</h3></span>
+						</div>
+						<!-- /LOGO -->
+
+						<!-- SEARCH BAR -->
+						<div class="col-md-6">
+							<div class="header-search">
+								<form method="POST">
+									{% csrf_token %}
+									<select name="stype" class="input-select">
+										<option value="0">Book Title</option>
+										
+									</select>
+									<input type="text" class="input" placeholder="Search here" name="searchbox">
+									<button name="sbutton" class="search-btn">Search</button>
+								</form>
+							</div>
+						</div>
+						<!-- /SEARCH BAR -->
+
+						<!-- ACCOUNT -->
+						<div class="col-md-3 clearfix">
+							<div class="header-ctn">
+								<!-- Wishlist -->
+								<!-- <div>
+									<a href="#">
+										<i class="fa fa-heart-o"></i>
+										<span>Your Wishlist</span>
+										<div class="qty">2</div>
+									</a>
+								</div> -->
+								<!-- /Wishlist -->
+
+								<!-- Cart -->
+								<div class="dropdown">
+									
+									<a class="dropdown-toggle" href="/wishlist">
+										<i class="fa fa-star"></i>
+										<span>Show Rated books</span>
+									</a>
+							
+								
+								</div>
+								<!-- /Cart -->
+
+								<!-- Menu Toogle -->
+								<div class="menu-toggle">
+									<a href="#">
+										<i class="fa fa-bars"></i>
+										<span>Menu</span>
+									</a>
+								</div>
+								<!-- /Menu Toogle -->
+							</div>
+						</div>
+						<!-- /ACCOUNT -->
+					</div>
+					<!-- row -->
+				</div>
+				<!-- container -->
+			</div>
+			<!-- /MAIN HEADER -->
+		</header>
+		<!-- /HEADER -->
+
+		<!-- NAVIGATION -->
+		<nav id="navigation">
+			<!-- container -->
+			<div class="container">
+				<!-- responsive-nav -->
+				<div id="responsive-nav">
+					<!-- NAV -->
+					<!-- /NAV -->
+				</div>
+				<!-- /responsive-nav -->
+			</div>
+			<!-- /container -->
+		</nav>
+		<!-- /NAVIGATION -->
+
+		<!-- BREADCRUMB -->
+	
+		<!-- /BREADCRUMB -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					
+					<!-- Product main img -->
+					<div class="col-md-5 col-md-push-2">
+						{% for book in viewbook%}
+							{{book.10}}
+						<div id="product-main-img">
+							<div class="product-preview">
+								<img src="{{book.12}}" alt="">
+							</div>
+
+							
+						</div>
+					</div>
+					<!-- /Product main img -->
+
+					<!-- Product thumb imgs -->
+					<div class="col-md-2  col-md-pull-5">
+						<div id="product-imgs">
+							<div class="product-preview">
+								<img src="{{book.12}}" alt="">
+							</div>
+						</div>
+					</div>
+					<!-- /Product thumb imgs -->
+<style>
+    .rating {
+    unicode-bidi: bidi-override;
+    color: #c5c5c5;
+    font-size: 25px;
+    height: 25px;
+    width: 100px;
+    margin: 0 auto;
+    position: relative;
+    padding: 0;
+    text-shadow: 0px 1px 0 #a2a2a2;
+  }
+  
+  .rating-upper {
+    color: #e7711b;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+  
+  .rating-lower {
+    padding: 0;
+    display: flex;
+    z-index: 0;
+  }
+  
+  </style>
+  
+  <style>
+    .rate {
+    display: inline-block;
+    border: 0;
+    }
+    .rate > input {
+        display: none;
+    }
+    .rate > label {
+        float: right;
+    }
+    .rate > label:before {
+        display: inline-block;
+        font-size: 1.5rem;
+        padding: .3rem .2rem;
+        margin: 0;
+        cursor: pointer;
+        font-family: FontAwesome;
+        content: "\f005 "; 
+    }
+    .rate > label:last-child:before {
+        content: "\f006 "; 
+    }
+    .rate .half:before {
+        content: "\f089 ";
+        position: absolute;
+        padding-right: 0;
+    }
+    input:checked ~ label, 
+    label:hover, label:hover ~ label { color: #e7711b;  } 
+
+    input:checked + label:hover, input:checked ~ label:hover,
+    input:checked ~ label:hover ~ label, 
+    label:hover ~ input:checked ~ label { color: rgb(235, 160, 55);  } 
+
+  </style>
+
+
+
+					<!-- Product details -->
+					<div class="col-md-5">
+						<div class="product-details">
+							<h2 class="product-name">{{book.10}}</h2>
+							<p>&nbsp;&nbsp;&nbsp;&nbsp;{{book.2}}</p>
+							<br>
+							<div>
+								<b>Average Rating:</b>
+							<div class="rating">
+								
+								<div class="rating-upper" style="width: {{avgrating}}%">
+                              <span>★</span>
+                              <span>★</span>
+                              <span>★</span>
+                              <span>★</span>
+                              <span>★</span>
+                          </div>
+                          <div class="rating-lower">
+                              <span>★</span>
+                              <span>★</span>
+                              <span>★</span>
+                              <span>★</span>
+                              <span>★</span>
+                          </div>
+							</div>		
+								
+							</div>
+							<br>
+							<b>Total Ratings:</b> &nbsp;&nbsp;&nbsp;{{book.8}}<br>
+							<b>Author:</b> &nbsp;&nbsp;&nbsp;{{book.1}}<br>
+							<b>Genre:</b>&nbsp;&nbsp;&nbsp; {{book.11}}</h5><br>
+							<b>Format:</b> &nbsp;&nbsp;&nbsp;{{book.4}}</h5><br>	
+							<b>Edition:</b>&nbsp;&nbsp;&nbsp;{{book.3}}</h5><br>
+							<b>Price:</b>&nbsp;&nbsp;&nbsp;Rs. {{book.6}}</h5><br>
+							
+
+							{% if test.0 %}    
+                  <tr><td><b>Given Rating  </b> </td><td>:</td><td> 
+                    <div class="rating mb-2">
+                        <div class="rating-upper" style="width: {{ test.1 }}%">
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                        </div>
+                        <div class="rating-lower">
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                        </div>
+                    </div><td></tr>  
+              </table>                         
+                  {% else %}
+                  <tr><td><b>Give Rating  </b> </td><td>:</td><td> 
+                    <form class="text-center" method="POST">
+                    	{% csrf_token %}
+                        <fieldset class="rate">
+                            <input type="radio" id="rating10" name="rating" value="5" /><label for="rating10" title="5 stars"></label>
+                            <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
+                            <input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
+                            <input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
+                            <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
+                            <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="1/2 star"></label>
+                        
+                        </fieldset>
+                     
+                  </td></tr>
+                  
+              </table> 
+              <input type="hidden" name="link" value="bookInfo">
+              <input type="hidden" name="bookId" value="{{book.0}}">
+               <br/>
+               <br/>  
+              <button class="btn btn-outline-secondary btn-primary"  type="submit">Submit</button>
+                      
+            </form> 
+            {% endif %}
+							<div>
+                                <form class ="text-center" id = "audiobookGenerator"  target = "_blank" style="margin-top: 20px;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="audio" value="{{book.10}}">
+                                    <button class = "btn btn-outline-secondary btn-primary" type = "submit">Generate audioBook</button>
+                                </form>
+
+
+                            </div>
+                        <div id="audiolink" style="text-align:center">
+
+                                </div>
+                            <script>
+                                $('#audiobookGenerator').submit(function(e){
+                                   e.preventDefault()
+
+                                   var that = $(this);
+                                   $.ajax({
+                                       url: 'audiobook/',
+                                       type: 'POST',
+                                       dataType: 'text/json',
+                                       //cache: false,
+                                       //contentType: false,
+                                       //processData: false,
+                                       data: that.serialize(),
+                                       success: function (data) {
+                                           var alink = data.responseText;
+                                           $("#audiolink").append('<a href = ' + alink + '>open audiolink</a>');
+                                       },
+                                       error: function (data) {
+                                           var alink = data.responseText;
+                                           $("#audiolink").append('<a href = ' + alink + '>open audiolink</a>');
+                                       }
+                                   });
+                                });
+                            </script>
+							
+						</div>
+					</div>
+					<!-- /Product details -->
+					{% endfor %}
+
+					<div class="col-md-12">
+						<div class="section-title text-center">
+							<h3 class="title">Similar Books</h3>
+						</div>
+					</div>
+
+					
+					<!-- Products tab & slick -->
+					<div class="col-md-12">
+						<div class="row">
+							<div class="products-tabs">
+								<!-- tab -->
+								<div id="tab1" class="tab-pane active">
+									<div class="products-slick" data-nav="#slick-nav-1">
+										
+							
+										{% for book in viewbook1 %}	
+								
+										<!-- product -->
+										<div class="product">
+											<div class="product-img">
+												<img src="{{book.12}}" alt="">
+										
+											</div>
+											<div class="product-body">
+												
+												<p class="product-category">{{book.1}}</p>
+												
+												<h3 class="product-name"><a href="#">{{book.10}}</a></h3>
+												
+												
+												
+											</div>
+											<div class="add-to-cart">
+											
+											
+											<form method="POST">
+												{% csrf_token %}
+												<button class="add-to-cart-btn" type="hidden" name="viewbook" value="{{book.0}}"><i class="fa fa-eye"></i>View Book Details</button>
+											</form>
+											</div>
+										</div>
+										<!-- /product -->
+											
+										{% endfor %}
+										
+									</div>
+									<div id="slick-nav-1" class="products-slick-nav"></div>
+								</div>
+								<!-- /tab -->
+							</div>
+						</div>
+					</div>
+					<!-- Products tab & slick -->
+
+					<!-- Product tab -->
+					<div class="col-md-12">
+						<div id="product-tab">
+							
+							<!-- product tab content -->
+							<div class="tab-content">
+								<!-- tab1  -->
+								<div id="tab1" class="tab-pane fade in active">
+									<div class="row">
+										<div class="col-md-12">
+											<p>{{bookdec.1}}</p>
+										</div>
+									</div>
+								</div>
+								<!-- /tab1  -->
+
+								<!-- tab2  -->
+								<div id="tab2" class="tab-pane fade in">
+									<div class="row">
+										<div class="col-md-12">
+											<p>{{bookdesc.2}}</p>
+										</div>
+									</div>
+								</div>
+								<!-- /tab2  -->
+								
+							</div>
+							<!-- /product tab content  -->
+						</div>
+					</div>
+					<!-- /product tab -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+
+		<!-- Section -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /Section -->
+
+		{%endblock%}
